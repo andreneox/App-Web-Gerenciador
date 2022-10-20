@@ -60,8 +60,29 @@ def read_product(id: int):
 
 
 @app.put("/product/{id}")
-def update_product(id: int):
-    return "atualizar um produto com a id {id}"
+def update_product(id: int, name: str, price:int, serie: int):
+    # create a new database session
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # get the todo item with the given id
+    product = session.query(Product).get(id)
+
+    # update todo item with the given task (if an item with the given id was found)
+    if product:
+        product.name = name
+        product.price = price
+        product.serie = serie
+
+        session.commit()
+
+    # close the session
+    session.close()
+
+    # check if todo item with given id exists. If not, raise exception and return 404 not found response
+    if not product:
+        raise HTTPException(status_code=404, detail=f"Produto com o id {id} nao encontrado!")
+
+    return product
 
 @app.delete("/product/{id}")
 def delete_product(id: int):
