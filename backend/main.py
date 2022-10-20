@@ -69,4 +69,13 @@ def delete_product(id: int):
 
 @app.get("/product")
 def read_product_list():
-    return "ler a lista de produtos"
+     # create a new database session
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # get all todo items
+    product_list = session.query(Product).all()
+
+    # close the session
+    session.close()
+
+    return product_list
