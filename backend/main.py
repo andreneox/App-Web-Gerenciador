@@ -1,3 +1,4 @@
+from itertools import product
 from fastapi import FastAPI, status
 from fastapi import HTTPException
 from database import Base, engine, Product
@@ -86,7 +87,22 @@ def update_product(id: int, name: str, price:int, serie: int):
 
 @app.delete("/product/{id}")
 def delete_product(id: int):
-    return "deletar um produto com a id {id}"
+    
+    # create a new database session
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # get the todo item with the given id
+    product = session.query(Product).get(id)
+
+    # if todo item with given id exists, delete it from the database. Otherwise raise 404 error
+    if product:
+        session.delete(product)
+        session.commit()
+        session.close()
+    else:
+        raise HTTPException(status_code=404, detail=f"Produto com o id {id} nao encontrado!")
+
+    return None
 
 @app.get("/product")
 def read_product_list():
