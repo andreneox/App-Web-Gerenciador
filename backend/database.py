@@ -4,11 +4,11 @@ from sqlalchemy.orm import sessionmaker
 
 
 
-# Create a sqlite engine instance
+# Criando uma sqlite engine instance
 engine = create_engine("sqlite:///product.db")
 
-# Create a DeclarativeMeta instance
+# Criando uma DeclarativeMeta instance
 Base = declarative_base()
 
-# Create SessionLocal class from sessionmaker factory
+# Criando uma SessionLocal class do sessionmaker do sqalchemy
 SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
