@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from database import Base
 from sqlalchemy.orm import relationship
 
-# Define To Do class inheriting from Base
+# Definindo a class Produto herdando da Base
 class Product(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True,autoincrement=True)
@@ -11,7 +11,7 @@ class Product(Base):
     serie = Column(Integer)
     
 
-
+# Definindo a class Categoria herdando da Base
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True,autoincrement=True)

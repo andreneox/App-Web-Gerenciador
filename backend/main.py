@@ -1,4 +1,5 @@
 from typing import List
+from unicodedata import category
 from fastapi import FastAPI, status, HTTPException, Depends
 from database import Base, engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -9,13 +10,13 @@ import schemas
 
 
 
-# Create the database
+
 Base.metadata.create_all(engine)
 
-# Initialize app
+# Iniciando o app
 app = FastAPI()
 
-# Helper function to get database session
+# Funcao para a sessao
 def get_session():
     session = SessionLocal()
     try:
@@ -32,24 +33,24 @@ def root():
 @app.post("/product", response_model=schemas.Product, status_code=status.HTTP_201_CREATED)
 def create_product(product: schemas.ProductCreate, session: Session = Depends(get_session)):
 
-    # create an instance of the ToDo database model
+    # criando uma instancia para o database da model Produto
     productdb = models.Product(name = product.name, price = product.price, serie = product.serie)
 
-    # add it to the session and commit it
+    # adicionando para a sessao e comitando
     session.add(productdb)
     session.commit()
     session.refresh(productdb)
 
-    # return the id
+    # retornando o produto criado
     return productdb
 
 @app.get("/product/{id}", response_model=schemas.Product)
 def read_product(id: int, session: Session = Depends(get_session) ):
      
-    # get the todo item with the given id
+    # tendo o produto com o seu ID
     product = session.query(models.Product).get(id)
 
-    # check if todo item with given id exists. If not, raise exception and return 404 not found response
+    # checando se existesse um produto com essa ID. Se nao , ele responde com um erro 404 not found 
     if not product:
         raise HTTPException(status_code=404, detail=f"Produto com id {id} nao encontrado")
 
@@ -59,10 +60,10 @@ def read_product(id: int, session: Session = Depends(get_session) ):
 @app.put("/product/{id}")
 def update_product(id: int, name: str, price:int, serie: int, session: Session = Depends(get_session)):
    
-    # get the todo item with the given id
+    # tendo o produto com o seu ID
     product = session.query(models.Product).get(id)
 
-    # update todo item with the given task (if an item with the given id was found)
+    # update dos itens do produto (se o seu id for encontrado)
     if product:
         product.name = name
         product.price = price
@@ -71,7 +72,7 @@ def update_product(id: int, name: str, price:int, serie: int, session: Session =
         session.commit()
 
 
-    # check if todo item with given id exists. If not, raise exception and return 404 not found response
+    # checando se existesse um produto com essa ID. Se nao , ele responde com um erro 404 not found
     if not product:
         raise HTTPException(status_code=404, detail=f"Produto com o id {id} nao encontrado!")
 
@@ -80,10 +81,10 @@ def update_product(id: int, name: str, price:int, serie: int, session: Session =
 @app.delete("/product/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_product(id: int, session: Session = Depends(get_session)):
  
-    # get the todo item with the given id
+    #  # tendo o produto com o seu ID
     product = session.query(models.Product).get(id)
 
-    # if todo item with given id exists, delete it from the database. Otherwise raise 404 error
+    # Se o id do produto existe ele deleta do database. Caso nao ele informa um erro 404.
     if product:
         session.delete(product)
         session.commit()
@@ -96,7 +97,84 @@ def delete_product(id: int, session: Session = Depends(get_session)):
 @app.get("/product", response_model = List[schemas.Product])
 def read_product_list(session: Session = Depends(get_session)):
 
-    # get all todo items
+    # tem todos os produtos
     product_list = session.query(models.Product).all()
 
     return product_list
+
+
+
+
+# CRUD da model Category
+
+
+
+
+@app.post("/category", response_model=schemas.Category, status_code=status.HTTP_201_CREATED)
+def create_category(category: schemas.CategoryCreate, session: Session = Depends(get_session)):
+
+    # criando uma instancia para o database da model Category
+    categorydb = models.Category(name = category.name)
+
+    # adicionando para a sessao e comitando
+    session.add(categorydb)
+    session.commit()
+    session.refresh(categorydb)
+
+    # retornando o produto criado
+    return categorydb
+
+@app.get("/category/{id}", response_model=schemas.Category)
+def read_category(id: int, session: Session = Depends(get_session) ):
+     
+    # tendo a categoria com o seu ID
+    category = session.query(models.Category).get(id)
+
+    # checando se existesse uma categoria com essa ID. Se nao , ele responde com um erro 404 not found 
+    if not category:
+        raise HTTPException(status_code=404, detail=f"Categoria com id {id} nao encontrado")
+
+    return category
+
+
+@app.put("/category/{id}")
+def update_category(id: int, name: str, session: Session = Depends(get_session)):
+   
+    # tendo a categoria com o seu ID
+    category = session.query(models.Category).get(id)
+
+    # update dos itens da categoria (se o seu id for encontrado)
+    if category:
+        category.name = name
+        
+        session.commit()
+
+    # checando se existesse uma categoria com essa ID. Se nao , ele responde com um erro 404 not found
+    if not category:
+        raise HTTPException(status_code=404, detail=f"Categoria com o id {id} nao encontrado!")
+
+    return category
+
+@app.delete("/category/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_category(id: int, session: Session = Depends(get_session)):
+ 
+    #  # tendo a categoria com o seu ID
+    category = session.query(models.Category).get(id)
+
+    # Se o id da categoria existe ele deleta do database. Caso nao ele informa um erro 404.
+    if category:
+        session.delete(category)
+        session.commit()
+       
+    else:
+        raise HTTPException(status_code=404, detail=f"Categoria com o id {id} nao encontrado!")
+
+    return None
+
+@app.get("/category", response_model = List[schemas.Category])
+def read_category_list(session: Session = Depends(get_session)):
+
+    # tem todas as categorias
+    category_list = session.query(models.Category).all()
+
+    return category_list
