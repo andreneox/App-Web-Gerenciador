@@ -1,1 +1,10 @@
-<p>product-form works!</p>
+<div>
+    <label for="product_label">Nome do Produto</label>
+    <input type="text" class="form-control" id="product_name">
+  </div>
+  <div>
+    <label for="category_label">Categorias</label>
+    <select id="categories_select" *ngFor="let category of categories">
+      <option value="{{category.id}}">{{category.name}}</option>
+    </select>
+</div>

@@ -1,6 +1,7 @@
 from typing import List
 from unicodedata import category
 from fastapi import FastAPI, status, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine, SessionLocal
 from sqlalchemy.orm import Session
 import models
@@ -15,6 +16,17 @@ Base.metadata.create_all(engine)
 
 # Iniciando o app
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Funcao para a sessao
 def get_session():
