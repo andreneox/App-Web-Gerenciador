@@ -1,6 +1,7 @@
 from typing import List
 from unicodedata import category
 from fastapi import FastAPI, status, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine, SessionLocal
 from sqlalchemy.orm import Session
 import models
@@ -15,6 +16,17 @@ Base.metadata.create_all(engine)
 
 # Iniciando o app
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Funcao para a sessao
 def get_session():
@@ -31,10 +43,10 @@ def root():
     return "produto"
 
 @app.post("/product", response_model=schemas.Product, status_code=status.HTTP_201_CREATED)
-def create_product(product: schemas.ProductCreate, session: Session = Depends(get_session)):
+def create_product(product: schemas.ProductCreate,  session: Session = Depends(get_session)):
 
     # criando uma instancia para o database da model Produto
-    productdb = models.Product(name = product.name, price = product.price, serie = product.serie)
+    productdb = models.Product(name = product.name, price = product.price, serie = product.serie, category_id = product.category_id)
 
     # adicionando para a sessao e comitando
     session.add(productdb)

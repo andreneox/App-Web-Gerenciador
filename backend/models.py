@@ -9,6 +9,7 @@ class Product(Base):
     name = Column(String(60))
     price = Column(Integer) 
     serie = Column(Integer)
+    category_id = Column(Integer, ForeignKey('category.id'))
     
 
 # Definindo a class Categoria herdando da Base
