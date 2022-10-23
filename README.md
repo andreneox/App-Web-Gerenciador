@@ -21,6 +21,8 @@ uvicorn main:app --reload
 ```shell
 cd ./frontend
 cd ./gerenciamento
+npm i
+npm start
 ng serve
 ```
 
