@@ -1,38 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { ProductsListComponent } from './components/products-list/products-list.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
-import { GerenciamentoCategoriaComponent } from './components/gerenciamento-categoria/gerenciamento-categoria.component'; 
-import { DispositivoGestaoComponent } from './components/dispositivo-gestao/dispositivo-gestao.component';
-import { ProductFormComponent } from './product-form/product-form.component'; 
-
-
-
-
+import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsListComponent,
-    AddProductComponent,
-    GerenciamentoCategoriaComponent,
-    DispositivoGestaoComponent,
     ProductFormComponent,
+    ProductListComponent,
+    ProductDetailsComponent
   ],
   imports: [
-    
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
-  
   providers: [],
   bootstrap: [AppComponent]
 })

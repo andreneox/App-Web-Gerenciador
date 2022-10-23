@@ -2,9 +2,12 @@
     <label for="product_label">Nome do Produto</label>
     <input type="text" class="form-control" id="product_name">
   </div>
+ 
   <div>
-    <label for="category_label">Categorias</label>
-    <select id="categories_select" *ngFor="let category of categories">
-      <option value="{{category.id}}">{{category.name}}</option>
+    <label>Categorias:</label> &nbsp;
+    <select name="select" >
+      <option selected="true" value="">Select . . .</option>
+      <option  value="category.id" *ngFor="let category of categories">{{category.name}}</option>
     </select>
+    
 </div>

@@ -1,5 +1,5 @@
 /* Responsive Styles */
-&:host {
+:host {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-size: 14px;
 	color: #333;
@@ -39,11 +39,14 @@ p {
 	height: 60px;
 	display: flex;
 	align-items: center;
-	background-color: #1976d2;
+	background-color: #213040;
 	color: white;
 	font-weight: 600;
 	img {
 		margin: 0 16px;
+	}
+	a {
+		color: white;
 	}
 	#twitter-logo {
 		height: 40px;
@@ -59,6 +62,7 @@ p {
 			opacity: 0.8;
 		}
 	}
+	
 }
 .content {
 	display: flex;
@@ -283,3 +287,7 @@ svg#clouds {
 		visibility: hidden;
 	}
 }
+itens {
+	color: white;
+}
+

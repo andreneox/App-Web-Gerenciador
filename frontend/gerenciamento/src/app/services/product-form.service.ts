@@ -28,7 +28,7 @@ export class ProductFormService {
 
   // Obtem um produto pelo id
   getProductById(id: number): Observable<Product> {
-    return this.httpClient.get<Product>(this.url + '/product/' + id)
+    return this.httpClient.get<Product>(this.url + 'product/' + id)
       .pipe(
         retry(2),
         catchError(this.handleError)

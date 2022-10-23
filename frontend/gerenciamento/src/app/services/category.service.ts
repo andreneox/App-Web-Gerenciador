@@ -27,7 +27,7 @@ export class CategoryService {
 
   // Obtem um categoria pelo id
   getCategoryById(id: number): Observable<Category> {
-    return this.httpClient.get<Category>(this.url + '/category/' + id)
+    return this.httpClient.get<Category>(this.url + 'category/' + id)
       .pipe(
         retry(2),
         catchError(this.handleError)

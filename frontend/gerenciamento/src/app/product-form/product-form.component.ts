@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product';
+
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router'
 import { ProductFormService } from '../services/product-form.service';
+import { Product } from '../models/product';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.css']
+  styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
   product = {} as Product;
   category = {} as Category;
   products: Product[] = [];
   categories: Category[] = [];
+  
 
   constructor(private productService: ProductFormService, 
-            private categoryService: CategoryService) {}
+            private categoryService: CategoryService,
+            private route: ActivatedRoute) {}
   
   ngOnInit() {
     this.getCategories();
@@ -36,35 +40,16 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  // Chama o serviço para obtém todos os produtos
-  getProducts() {
-    this.productService.getProducts().subscribe((products: Product[]) => {
-      this.products = products;
-    });
-  }
-
   getCategories(){
     this.categoryService.getCategories().subscribe((categories: Category[]) => {
       this.categories = categories;
     });
-    
   }
 
-  // deleta um produto
-  deleteProduct(product: Product) {
-    this.productService.deleteProduct(product).subscribe(() => {
-      this.getProducts();
-    });
-  }
-
-  // copia o produto para ser editado.
-  editProduct(product: Product) {
-    this.product = { ...product };
-  }
 
   // limpa o formulario
   cleanForm(form: NgForm) {
-    this.getProducts();
+    this.getCategories();
     form.resetForm();
     this.product = {} as Product;
   }

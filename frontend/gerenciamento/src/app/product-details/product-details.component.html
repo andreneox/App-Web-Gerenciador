@@ -1,0 +1,19 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="product_label">Product Name</label>
+    <input type="text" class="form-control" id="name" formControlName="name" value="{{product.name}}">
+    <label for="product_label">Price</label>
+    <input type="text" class="form-control" id="price" formControlName="price" value="{{product.price}}">
+    <label for="product_label">Serie</label>
+    <input type="text" class="form-control" id="serie" formControlName="serie" value="{{product.serie}}">
+  </div>
+ 
+  <div>
+    <label>Categorias:</label> &nbsp;
+    <select name="select" >
+      <option [selected]="category.id === product.category_id" value="product.id" *ngFor="let category of categories">{{category.name}}</option>
+    </select>
+    <br><br><br>
+    <button type="submit" class="btn btn-success">Save</button>
+  </div>
+</form>
