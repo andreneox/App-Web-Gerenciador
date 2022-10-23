@@ -1,11 +1,11 @@
-<h1 align="center">Projeto b.Product</h1>
+<h1 align="center">Projeto b_Products</h1>
  <p align="center">Um gerenciador de produtos, com o gerenciamento do seus Produtos e Categorias. O backend utiliza tecnologia Python com uma FastApi, o frontend utiliza a tecnologia Angular.</p>
 
 # [FastAPI](https://fastapi.tiangolo.com/) // [Angular](https://angular.io/) 
 
-<h2>Backend</h2>
 
-## Backend
+
+## Setup Backend
 
 ```shell
 python3 -m venv tutorial-env
@@ -16,20 +16,13 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+## Setup Frontend
 
-
-<h2>Frontend</h2>
-
+```shell
 cd ./frontend
-cd gerencimento
+cd ./gerenciamento
 ng serve
+```
 
-Backend
 
-cd ./backend
-python -m virtualenv .devweb
-./.venv/Scripts/activate.ps1
-pip install -r requirements.txt
-cd ..
-python -m backend
 
