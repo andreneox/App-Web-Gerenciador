@@ -1,10 +1,18 @@
+<h3>Atualizar Categoria</h3>
+<br><br>
+
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="category_label">Category Name</label>
+      <label for="category_label">Categoria</label>
       <input type="text" class="form-control" id="name" formControlName="name" value="{{category.name}}">
     </div>
+    <br><br><br>
     <div>
-      <button type="submit" class="btn btn-success">Save</button>
-      <button type="button" class="btn btn-danger" (click)="cancelCategory()">Cancel</button>
+      <button type="submit" class="btn btn-success">Salvar Categoria</button> &nbsp;
+      <button type="button" class="btn btn-danger" (click)="cancelCategory()">Cancelar Ação</button>
     </div>
   </form>
+  <br><br><br><br><br><br>
+  <div class="col-1 mx-auto">
+    <a href="" type="button" class="btn btn-secondary btn-sm">Página Inicial</a>
+  </div>
