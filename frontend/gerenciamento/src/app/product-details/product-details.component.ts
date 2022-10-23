@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 import { ProductFormService } from '../services/product-form.service';
 import { CategoryService } from '../services/category.service';
@@ -18,12 +19,11 @@ export class ProductDetailsComponent implements OnInit {
   categories: Category[] = [];
   id: string = '';
   
-
-  checkoutForm: FormGroup = this.formBuilder.group({
-    name: '',
-    price: '',
-    serie: '',
-    category_id: ''
+  checkoutForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    price: [0, Validators.required],
+    serie: [0, Validators.required],
+    category_id: [0, Validators.required],
   });
 
   constructor(private productService: ProductFormService, 
@@ -41,6 +41,12 @@ export class ProductDetailsComponent implements OnInit {
   getProductById(id: number) {
     this.productService.getProductById(id).subscribe((product: Product) => {
       this.product = product;
+      this.checkoutForm.patchValue({
+        name: this.product.name,
+        price: this.product.price,
+        serie: this.product.serie,
+        category_id: this.product.category_id
+      });
     });
   }
 

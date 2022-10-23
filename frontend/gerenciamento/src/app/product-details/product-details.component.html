@@ -10,10 +10,12 @@
  
   <div>
     <label>Categorias:</label> &nbsp;
-    <select name="select" >
+    <select name="select" formControlName="category_id">
       <option [selected]="category.id === product.category_id" value="product.id" *ngFor="let category of categories">{{category.name}}</option>
     </select>
     <br><br><br>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button [disabled]="!checkoutForm.valid" type="submit" class="btn btn-success">Save</button>
   </div>
 </form>
+<p>Form Status: {{ checkoutForm.status }}</p>
+<p>Form Status: {{ checkoutForm.value | json }}</p>
