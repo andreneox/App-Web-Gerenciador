@@ -35,7 +35,7 @@ export class CategoryService {
   }
 
   // salva um categoria
-  saveProduct(category: Category): Observable<Category> {
+  saveCategory(category: Category): Observable<Category> {
     return this.httpClient.post<Category>(this.url + 'category', JSON.stringify(category), this.httpOptions)
       .pipe(
         retry(2),
@@ -44,7 +44,7 @@ export class CategoryService {
   }
 
   // atualiza um categoria
-  updateProduct(category: Category): Observable<Category> {
+  updateCategory(category: Category): Observable<Category> {
     return this.httpClient.put<Category>(this.url + 'category/' + category.id, JSON.stringify(category), this.httpOptions)
       .pipe(
         retry(1),
@@ -53,7 +53,7 @@ export class CategoryService {
   }
 
   // deleta um categoria
-  deleteProduct(category: Category) {
+  deleteCategory(category: Category) {
     return this.httpClient.delete<Category>(this.url + 'category/' + category.id, this.httpOptions)
       .pipe(
         retry(1),
@@ -69,7 +69,7 @@ export class CategoryService {
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
     }
     console.log(errorMessage);
     return throwError(errorMessage);

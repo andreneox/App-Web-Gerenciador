@@ -1,7 +1,8 @@
 
 <h1>Product List</h1>
 <br><br>
-
+<button type="button" class="btn btn-success" (click)="newProduct()">New Product</button>
+<br><br>
 <table class="table">
     <thead>
       <tr>
@@ -22,7 +23,7 @@
         <td>{{product.category_name}}</td>
         <td>
             <button type="button" class="btn btn-warning" (click)="editProduct(product)">Edit</button> &nbsp;
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
         </td>
       </tr>
     </tbody>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router'
-import { ProductFormService } from '../services/product-form.service';
-import { CategoryService } from '../services/category.service';
-import { Product } from '../models/product';
-import { Category } from '../models/category';
+import { ActivatedRoute, Router } from '@angular/router'
+import { ProductFormService } from '../../../services/product-form.service';
+import { CategoryService } from '../../../services/category.service';
+import { Product } from '../../../models/product';
+import { Category } from '../../../models/category';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-details',
@@ -18,18 +18,21 @@ export class ProductDetailsComponent implements OnInit {
   category = {} as Category;
   categories: Category[] = [];
   id: string = '';
+  response: HttpStatusCode = 505;
   
-  checkoutForm = this.formBuilder.group({
+
+  checkoutForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     price: [0, Validators.required],
     serie: [0, Validators.required],
-    category_id: [0, Validators.required],
+    category_id: [0, Validators.required]
   });
 
   constructor(private productService: ProductFormService, 
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || ''
@@ -46,7 +49,7 @@ export class ProductDetailsComponent implements OnInit {
         price: this.product.price,
         serie: this.product.serie,
         category_id: this.product.category_id
-      });
+      })
     });
   }
 
@@ -56,11 +59,16 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
+  cancelProduct(){
+    this.router.navigate(['/products'])
+  }
+
   onSubmit(): void {
-    // Process checkout data here
-    //this.items = this.cartService.clearCart();
-    console.warn('Your order has been submitted', this.checkoutForm.value);
-    this.checkoutForm.reset();
+    this.product = this.checkoutForm.value;
+    this.product.id = parseInt(this.id);
+    this.productService.updateProduct(this.product).subscribe((res: Product) =>{
+      this.router.navigate(['/products'])
+    })    
   }
 
 }
