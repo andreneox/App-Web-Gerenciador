@@ -1,0 +1,10 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="category_label">Category Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" value="{{category.name}}">
+    </div>
+    <div>
+      <button type="submit" class="btn btn-success">Save</button>
+      <button type="button" class="btn btn-danger" (click)="cancelCategory()">Cancel</button>
+    </div>
+  </form>

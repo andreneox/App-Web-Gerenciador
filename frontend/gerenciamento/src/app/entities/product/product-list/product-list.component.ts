@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router"
-import { ProductFormService } from '../services/product-form.service';
-import { CategoryService } from '../services/category.service';
-import { Product } from '../models/product';
-import { Category } from '../models/category';
+import { ProductFormService } from '../../../services/product-form.service';
+import { CategoryService } from '../../../services/category.service';
+import { Product } from '../../../models/product';
+import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-product-list',
@@ -40,6 +40,10 @@ export class ProductListComponent implements OnInit {
 
   editProduct(product: Product){
     this.router.navigate(['/product',product.id])
+  }
+
+  newProduct(){
+    this.router.navigate(['/product'])
   }
 
   // deleta um produto

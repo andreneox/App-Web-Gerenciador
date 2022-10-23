@@ -48,7 +48,7 @@ export class ProductFormService {
   updateProduct(product: Product): Observable<Product> {
     return this.httpClient.put<Product>(this.url + 'product/' + product.id, JSON.stringify(product), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(2),
         catchError(this.handleError)
       )
   }
@@ -79,7 +79,7 @@ export class ProductFormService {
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
     }
     console.log(errorMessage);
     return throwError(errorMessage);

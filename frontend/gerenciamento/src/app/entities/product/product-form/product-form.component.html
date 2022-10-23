@@ -10,10 +10,12 @@
  
   <div>
     <label>Categorias:</label> &nbsp;
-    <select name="select" >
-      <option [selected]="category.id === product.category_id" value="product.id" *ngFor="let category of categories">{{category.name}}</option>
+    
+    <select name="categories" id="categories" class="form-select"  formControlName="category_id" >
+      <option  [selected]="category.id === product.category_id" [ngValue]="category.id" *ngFor="let category of categories">{{category.name}}</option>
     </select>
     <br><br><br>
     <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-danger" (click)="cancelProduct()">Cancel</button>
   </div>
 </form>
