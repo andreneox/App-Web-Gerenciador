@@ -1,17 +1,17 @@
 
-<h1>Product List</h1>
+<h1>Lista de Produtos</h1>
 <br><br>
-<button type="button" class="btn btn-success" (click)="newProduct()">New Product</button>
+<button type="button" class="btn btn-success" (click)="newProduct()">Novo Produto</button>
 <br><br>
 <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Preço</th>
         <th scope="col">Serie</th>
-        <th scope="col">Category</th>
-        <th scope="col">Action</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody *ngFor="let product of products">
@@ -22,8 +22,8 @@
         <td>{{product.serie}}</td>
         <td>{{product.category_name}}</td>
         <td>
-            <button type="button" class="btn btn-warning" (click)="editProduct(product)">Edit</button> &nbsp;
-            <button type="button" class="btn btn-danger" (click)="deleteProduct(product)">Delete</button>
+            <button type="button" class="btn btn-warning" (click)="editProduct(product)">Editar</button> &nbsp;
+            <button type="button" class="btn btn-danger" (click)="deleteProduct(product)">Apagar</button>
         </td>
       </tr>
     </tbody>
